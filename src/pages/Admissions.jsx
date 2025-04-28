@@ -232,7 +232,7 @@ const Admissions = () => {
           </Step>
 
           <Step>
-            <img src="..src/assets/images/receive.png" alt="Step 1" />
+            <img src="../src/assets/images/receive.png" alt="Step 1" />
             <div>
               <h2>Step 3: Receive an Offer</h2>
               <p>

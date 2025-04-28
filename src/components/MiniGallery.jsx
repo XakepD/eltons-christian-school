@@ -199,7 +199,7 @@ const MiniGallery = () => {
   const [selectedImageIndex, setSelectedImageIndex] = useState(null) // State for the selected image index
 
   useEffect(() => {
-    axios("http://127.0.0.1:8000/random-images/") // Fetch galleries from the backend
+    axios("https://eltonsapi.onrender.com/random-images/") // Fetch galleries from the backend
       .then((response) => {
         setGalleries(response.data) // Assuming the backend returns a list of galleries
       })

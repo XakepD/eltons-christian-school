@@ -160,7 +160,7 @@ const Gallery = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(null)
 
   useEffect(() => {
-    axios(`http://127.0.0.1:8000/image/${slug}/`)
+    axios(`https://eltonsapi.onrender.com/image/${slug}/`)
       .then((response) => {
         setImages(response.data.images)
         setGalleryTitle(response.data.gallery_title)

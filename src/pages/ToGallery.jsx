@@ -110,7 +110,7 @@ const ToGallery = () => {
   const [galleries, setGalleries] = useState([]) // Changed state name to "galleries"
 
   useEffect(() => {
-    axios("http://127.0.0.1:8000/gallery/") // Fetch galleries from the backend
+    axios("https://eltonsapi.onrender.com/gallery/") // Fetch galleries from the backend
       .then((response) => {
         setGalleries(response.data) // Assuming the backend returns a list of galleries
       })
