@@ -191,7 +191,7 @@ const Gallery = () => {
     )
   }
   const downloadImage = () => {
-    const imageUrl = `http://127.0.0.1:8000/${images[currentImageIndex].image}`
+    const imageUrl = `https://eltonsapi.onrender.com/${images[currentImageIndex].image}`
     const fileName = `image-${currentImageIndex + 1}.jpg` // Set the default filename
     saveAs(imageUrl, fileName) // Use file-saver to download the image
   }
