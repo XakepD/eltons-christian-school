@@ -1,87 +1,145 @@
 import React from "react"
 import styled from "styled-components"
-import "animate.css"
+import { FaEye, FaHome, FaHistory, FaUserTie } from "react-icons/fa"
 
 const Container = styled.div`
-  padding: 2rem 6rem;
-  background-color: #f9f9f9;
+  color: #333;
 `
 
 const Header = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 3rem;
+  background: url("../src/assets/images/banner.jpg") no-repeat center center;
+  background-size: cover;
+  color: white;
   text-align: center;
-  margin-bottom: 2rem;
 
   h1 {
-    font-size: 2.5rem;
-    color: #07611c;
+    font-size: 3rem;
     animation: fadeInDown 1.5s;
+    font-weight: bold;
   }
 
   p {
     font-size: 1.2rem;
-    color: #333;
     margin-top: 0.5rem;
     animation: fadeInUp 1.5s;
   }
 `
 
-const Section = styled.div`
-  display: flex;
-  flex-direction: ${({ reverse }) => (reverse ? "row-reverse" : "row")};
+const About = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  justify-content: center;
   align-items: center;
-  margin: 2rem 0;
-  gap: 2rem;
+  align-content: center;
+  justify-items: center;
+  row-gap: 20px;
+  flex-wrap: wrap;
+  padding: 4rem;
+  height: 100%;
 
   @media (max-width: 768px) {
-    flex-direction: column;
+    grid-template-columns: 1fr;
+    padding: 2rem;
+    height: auto;
+    div {
+      max-width: 100%;
+    }
   }
 
   div {
-    flex: 1;
-  }
-
-  img {
-    flex: 1;
-    max-width: 100%;
-    border-radius: 10px;
+    padding: 1rem;
+    background: whitesmoke;
+    max-width: 300px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    animation: fadeIn 1.5s;
-  }
+    border-radius: 10px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+    height: inherit;
+    @media (max-width: 768px) {
+      max-width: 100%;
+    }
 
-  h2 {
-    font-size: 2rem;
-    color: #07611c;
-    margin-bottom: 1rem;
-    animation: fadeInLeft 1.5s;
-  }
+    &:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+    }
 
-  p {
-    font-size: 1rem;
-    color: #333;
-    line-height: 1.5;
-    animation: fadeInRight 1.5s;
+    span {
+      font-size: 50px;
+      color: #07611c;
+      text-align: center;
+      width: 100%;
+    }
+
+    h1 {
+      font-weight: bold;
+      font-size: 1.5rem;
+      margin: 1rem 0;
+    }
+
+    p {
+      font-size: 0.9rem;
+      line-height: 1.5;
+      color: #555;
+    }
   }
 `
 
-const MissionVision = styled.div`
+const TeamSection = styled.div`
+  padding: 4rem 2rem; /* Blue gradient */
   text-align: center;
-  margin: 2rem 0;
-  padding: 2rem;
-  background-color: #ffffff;
   border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  animation: fadeInUp 1.5s;
 
   h2 {
-    font-size: 2rem;
-    color: #07611c;
+    font-size: 2.5rem;
+    color: #004d40; /* Cool dark teal */
+    margin-bottom: 2rem;
+  }
+`
+
+const TeamGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+`
+
+const TeamCard = styled.div`
+  background: #ffffff;
+  border-radius: 10px;
+  padding: 2rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+  &:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+  }
+
+  img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
     margin-bottom: 1rem;
+    object-fit: cover;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  h3 {
+    font-size: 1.2rem;
+    color: #004d40; /* Cool dark teal */
+    margin-bottom: 0.5rem;
   }
 
   p {
     font-size: 1rem;
-    color: #333;
-    line-height: 1.5;
+    color: #555;
   }
 `
 
@@ -91,88 +149,74 @@ const AboutUs = () => {
       {/* Header Section */}
       <Header>
         <h1>About Us</h1>
-        <p>
-          Learn more about Eltons Christian School, our mission, vision, and the
-          values that drive us.
-        </p>
+        <p>Learn more about Eltons Christian School</p>
       </Header>
 
-      {/* History Section */}
-      <Section reverse={false}>
+      {/* About Section */}
+      <About>
         <div>
-          <h2>Our History</h2>
+          <span>
+            <FaHome />
+          </span>
+          <h1>Mission</h1>
           <p>
-            Established over 20 years ago, Eltons Christian School has been a
-            beacon of education and faith. Our journey began with a vision to
-            provide quality education rooted in Christian values. Over the
-            years, we have grown into a vibrant community of learners, teachers,
-            and families dedicated to excellence.
+            Committed to partnering with parents to educate the minds and
+            nurture the hearts of learners for the glory of God in a
+            Christ-centered environment.
           </p>
         </div>
-        <img src="../images/history.jpg" alt="Our History" />
-      </Section>
-
-      {/* Mission and Vision Section */}
-      <MissionVision>
-        <h2>Our Mission</h2>
-        <p>
-          To inspire excellence, build character, and nurture a love for
-          learning in every student through a Christ-centered education.
-        </p>
-        <h2>Our Vision</h2>
-        <p>
-          To be a leading Christian school that empowers students to become
-          compassionate leaders and lifelong learners who make a positive impact
-          on the world.
-        </p>
-      </MissionVision>
-
-      {/* Values Section */}
-      <Section reverse={true}>
         <div>
-          <h2>Our Core Values</h2>
+          <span>
+            <FaEye />
+          </span>
+          <h1>Vision</h1>
           <p>
-            At Eltons Christian School, we are guided by the following core
-            values:
-          </p>
-          <ul>
-            <li>
-              <strong>Faith:</strong> Rooted in Christian principles.
-            </li>
-            <li>
-              <strong>Excellence:</strong> Striving for academic and personal
-              growth.
-            </li>
-            <li>
-              <strong>Integrity:</strong> Acting with honesty and respect.
-            </li>
-            <li>
-              <strong>Community:</strong> Building strong relationships and
-              partnerships.
-            </li>
-            <li>
-              <strong>Service:</strong> Giving back to society and making a
-              difference.
-            </li>
-          </ul>
-        </div>
-        <img src="../images/values.jpg" alt="Our Values" />
-      </Section>
-
-      {/* Team Section */}
-      <Section reverse={false}>
-        <div>
-          <h2>Meet Our Team</h2>
-          <p>
-            Our dedicated team of educators and staff are passionate about
-            providing the best learning experience for our students. With a
-            commitment to excellence and a heart for service, our team works
-            tirelessly to ensure every student thrives academically,
-            spiritually, and socially.
+            To see lives transformed by the power of the gospel of Jesus Christ
+            through Christian Education.
           </p>
         </div>
-        <img src="../images/team.jpg" alt="Our Team" />
-      </Section>
+        <div>
+          <span>
+            <FaHistory />
+          </span>
+          <h1>History</h1>
+          <p>
+            Established in 2007, Eltons Christian School has been a beacon of
+            education and faith. Our journey began with a vision to see lives
+            transformed by the power of the gospel of Jesus Christ through
+            Christian Education. Over the years, we've grown into a vibrant
+            community of learners, teachers, and families dedicated to
+            excellence.
+          </p>
+        </div>
+      </About>
+
+      {/* Our Team Section */}
+      <TeamSection>
+        <h2>Meet Our Team</h2>
+        <TeamGrid>
+          <TeamCard>
+            <img src="../src/assets/images/team1.jpg" alt="Team Member 1" />
+            <h3>John Doe</h3>
+            <p>Principal</p>
+          </TeamCard>
+          <TeamCard>
+            <img src="../src/assets/images/team2.jpg" alt="Team Member 2" />
+            <h3>Jane Smith</h3>
+            <p>Vice Principal</p>
+          </TeamCard>
+          <TeamCard>
+            <img src="../src/assets/images/team3.jpg" alt="Team Member 3" />
+            <h3>Michael Brown</h3>
+            <p>Head of Academics</p>
+          </TeamCard>
+          <TeamCard>
+            <img src="../src/assets/images/team4.jpg" alt="Team Member 4" />
+            <h3>Emily White</h3>
+            <p>Head of Administration</p>
+          </TeamCard>
+        </TeamGrid>
+      </TeamSection>
     </Container>
   )
 }

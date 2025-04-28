@@ -7,110 +7,113 @@ import "animate.css"
 import AOS from "aos"
 import "aos/dist/aos.css"
 import { useEffect } from "react"
+import { FaChalkboardTeacher, FaChild, FaBook, FaSmile } from "react-icons/fa"
+import Welcome from "../components/Welcome"
+import Slides from "../components/Slides"
+import Contact from "../components/Contact"
+import MiniGallery from "../components/MiniGallery"
 
+const SocialLinks = styled.div`
+  display: flex;
+  gap: 1rem;
+  margin-top: 2rem;
+  position: absolute;
+  bottom: 20px;
+  @media (max-width: 768px) {
+    position: relative;
+  }
+
+  a {
+    color: white;
+    font-size: 1.5rem;
+    transition: color 0.3s;
+
+    &:hover {
+      color: #5cff7c; /* Light green hover effect */
+    }
+  }
+`
+
+const WhyChooseUsSection = styled.section`
+  margin: 3rem 0;
+  padding: 4rem;
+  background: rgba(0, 0, 0, 0.1);
+  color: white;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 1.5s;
+  display: flex;
+  gap: 30px;
+
+  h2 {
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .features {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    .feature {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      background: #000000;
+      padding: 1.3rem;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+      svg {
+        font-size: 2.5rem;
+        color: #5cff7c;
+      }
+
+      div {
+        h3 {
+          font-size: 1.5rem;
+          margin-bottom: 0.5rem;
+        }
+
+        p {
+          font-size: 1rem;
+          line-height: 1.5;
+        }
+      }
+    }
+  }
+`
+const Sections = styled.div`
+  padding: 2rem 4rem;
+  @media (max-width: 768px) {
+    padding: 2rem;
+  }
+`
+const WhyContent = styled.div`
+  flex: 2;
+`
+const WhyImage = styled.div`
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  div {
+    img {
+      width: 100%;
+      filter: grayscale(0.5);
+      border-top: 20px solid #000000;
+    }
+  }
+  @media (max-width: 768px) {
+    display: none;
+  }
+`
 const Container = styled.div`
-  background: #f5f5f5;
-  font-family: "Segoe UI", sans-serif;
+  background: url("../src/assets/images/bg-image.jpg") no-repeat center center
+    fixed;
+  background-size: cover;
+  backdrop-filter: blur(35px);
   color: #333;
   @media (max-width: 768px) {
     text-align: center;
-  }
-`
-
-const CarouselContainer = styled.div`
-  position: relative;
-`
-
-const Slide = styled.div`
-  position: relative;
-  height: 500px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    filter: brightness(70%);
-  }
-`
-
-const Overlay = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  align-items: flex-start;
-  background: rgba(0, 0, 0, 0.5);
-  text-align: center;
-  color: white;
-  padding: 3rem;
-  box-sizing: border-box;
-  line-height: 0.5;
-
-  h2 {
-    font-size: 3rem;
-    animation: fadeInDown 1s;
-  }
-
-  p {
-    font-size: 1.5rem;
-    margin-top: 0.5rem;
-    animation: fadeInUp 1s;
-  }
-
-  button {
-    margin-top: 1rem;
-    padding: 0.8rem 2rem;
-    font-size: 1.1rem;
-    border: none;
-    background: #ff4c60;
-    color: white;
-    border-radius: 0.5rem;
-    cursor: pointer;
-    transition: background 0.3s;
-  }
-
-  button:hover {
-    background: #e03e4f;
-  }
-`
-
-const WelcomeAddress = styled.section`
-  padding: 4rem 2rem;
-  background: #07611c4e;
-  color: white;
-  display: flex;
-  gap: 2rem;
-  border-radius: 1rem;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  backdrop-filter: blur(5px);
-
-  img {
-    width: 100%;
-    max-width: 300px;
-    border-radius: 10px;
-  }
-
-  div {
-    max-width: 600px;
-
-    h1 {
-      font-size: 2.5rem;
-      margin-bottom: 1rem;
-    }
-
-    p {
-      font-size: 1.2rem;
-      line-height: 1.6;
-    }
   }
 `
 
@@ -120,8 +123,13 @@ const Section = styled.section`
   align-items: center;
   padding: 3rem 6rem;
   gap: 2rem;
-  background: white;
+  background: whitesmoke;
   flex-wrap: wrap;
+  margin-top: 30px;
+  @media (max-width: 768px) {
+    padding: 2rem;
+    text-align: left;
+  }
 
   div {
     flex: 1;
@@ -130,8 +138,11 @@ const Section = styled.section`
   img {
     width: 100%;
     max-width: 400px;
-    border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    @media (max-width: 768px) {
+      max-width: 100%;
+    }
   }
 
   h2 {
@@ -142,18 +153,6 @@ const Section = styled.section`
   p {
     font-size: 1rem;
     line-height: 1.6;
-  }
-`
-
-const VideoContainer = styled.section`
-  padding: 3rem 2rem;
-  text-align: center;
-  background: #f0f0f0;
-
-  video {
-    width: 100%;
-    max-width: 800px;
-    border-radius: 10px;
   }
 `
 
@@ -169,58 +168,6 @@ const TestimonialsCarousel = styled(Slider)`
   }
 `
 
-const ContactContainer = styled.section`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 2rem;
-  justify-content: center;
-  padding: 3rem 2rem;
-  background: #e9f5ec;
-`
-
-const ContactForm = styled.form`
-  background: white;
-  padding: 2rem;
-  border-radius: 10px;
-  max-width: 500px;
-  width: 100%;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-
-  h2 {
-    font-size: 1.8rem;
-    margin-bottom: 1rem;
-    text-align: center;
-  }
-
-  label {
-    font-weight: bold;
-  }
-
-  input,
-  textarea {
-    width: 100%;
-    margin-bottom: 1rem;
-    padding: 0.8rem;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-  }
-
-  button {
-    background: #07611c;
-    color: white;
-    padding: 0.8rem;
-    border: none;
-    border-radius: 5px;
-    width: 100%;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background 0.3s;
-  }
-
-  button:hover {
-    background: #064d14;
-  }
-`
 const LevelsSection = styled.section`
   padding: 4rem 2rem;
   background: #fff;
@@ -257,16 +204,6 @@ const LevelCard = styled.div`
   }
 `
 const Home = () => {
-  const carouselSettings = {
-    dots: false,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    autoplay: true,
-    autoplaySpeed: 3000,
-  }
-
   const testimonialsSettings = {
     dots: true,
     infinite: true,
@@ -285,55 +222,17 @@ const Home = () => {
 
   return (
     <Container>
-      <CarouselContainer>
-        <Slider {...carouselSettings}>
-          <Slide>
-            <img src="../images/IMG_2306.jpeg" alt="Slide 1" />
-            <Overlay>
-              <h2>Welcome to Eltons Christian School</h2>
-              <p>Inspiring Excellence, Building Character</p>
-              <button>Enroll Now</button>
-            </Overlay>
-          </Slide>
-          <Slide>
-            <img src="../images/img6.jpg" alt="Slide 2" />
-            <Overlay>
-              <h2>Empowering Future Leaders</h2>
-              <p>Providing Quality Education for Over 20 Years</p>
-              <button>Enroll Now</button>
-            </Overlay>
-          </Slide>
-          <Slide>
-            <img src="../images/img1.jpg" alt="Slide 3" />
-            <Overlay>
-              <h2>Join Our Vibrant Community</h2>
-              <p>Where Learning Meets Faith</p>
-              <button>Enroll Now</button>
-            </Overlay>
-          </Slide>
-        </Slider>
-      </CarouselContainer>
-      <WelcomeAddress data-aos="fade-up">
-        <img src="../images/welcome.jpg" alt="Welcome" />
-        <div>
-          <h1>Welcome to Eltons Christian School</h1>
-          <p>
-            At Eltons Christian School, we are dedicated to nurturing young
-            minds and inspiring excellence in every student. Our mission is to
-            provide a holistic education that fosters academic achievement,
-            spiritual growth, and personal development.
-          </p>
-        </div>
-      </WelcomeAddress>
+      <Slides />
+      <Welcome />
 
       {/* Mission Section */}
       <Section reverse={false} data-aos="fade-right">
         <div>
           <h2>Our Mission</h2>
           <p>
-            We are committed to providing a nurturing environment where students
-            can grow academically, spiritually, and socially. We aim to inspire
-            excellence and foster a love for learning.
+            We are committed to partnering with parents to educate the minds and
+            nuture the hearts of learners for the glory of God in a Christ
+            centered environment
           </p>
         </div>
         <img src="../images/img6.jpg" alt="Mission" />
@@ -344,12 +243,64 @@ const Home = () => {
           <h2>About Us</h2>
           <p>
             Eltons Christian School has been a beacon of education and faith for
-            over 20 years. Our programs support students from diverse
+            over a decade. Our programs support students from diverse
             backgrounds with quality learning experiences.
           </p>
         </div>
         <img src="../images/img3.jpg" alt="About Us" />
       </Section>
+      <WhyChooseUsSection data-aos="fade-up">
+        <WhyContent>
+          <h2>Why Choose Us?</h2>
+          <div className="features">
+            <div className="feature" data-aos="fade-up">
+              <FaChalkboardTeacher />
+              <div>
+                <h3>Experienced Teachers</h3>
+                <p>
+                  Our teachers are highly qualified and dedicated to nurturing
+                  every child’s potential.
+                </p>
+              </div>
+            </div>
+            <div className="feature" data-aos="fade-up">
+              <FaChild />
+              <div>
+                <h3>Child-Centered Learning</h3>
+                <p>
+                  We focus on creating a safe and engaging environment for every
+                  child to thrive.
+                </p>
+              </div>
+            </div>
+            <div className="feature" data-aos="fade-up">
+              <FaBook />
+              <div>
+                <h3>Comprehensive Curriculum</h3>
+                <p>
+                  Our curriculum is designed to foster academic excellence and
+                  creativity.
+                </p>
+              </div>
+            </div>
+            <div className="feature" data-aos="fade-up">
+              <FaSmile />
+              <div>
+                <h3>Happy Students</h3>
+                <p>
+                  We ensure that every child enjoys their learning journey with
+                  us.
+                </p>
+              </div>
+            </div>
+          </div>
+        </WhyContent>
+        <WhyImage data-aos="fade-down">
+          <div>
+            <img src="../src/assets/images/becca.jpg" alt="" srcset="" />
+          </div>
+        </WhyImage>
+      </WhyChooseUsSection>
       <LevelsSection data-aos="fade-up">
         <h2>🧒👦 Our School Levels</h2>
         <LevelsGrid>
@@ -374,13 +325,7 @@ const Home = () => {
           </LevelCard>
         </LevelsGrid>
       </LevelsSection>
-      <VideoContainer>
-        <h2>Our Campus</h2>
-        <video controls autoPlay loop muted>
-          <source src="../images/cont.mp4" type="video/mp4" />
-          Your browser does not support the video tag.
-        </video>
-      </VideoContainer>
+      <MiniGallery />
 
       <TestimonialsCarousel {...testimonialsSettings}>
         <div>
@@ -409,53 +354,12 @@ const Home = () => {
             find out how you can join our growing family.
           </p>
         </div>
-        <img src="../images/img7.jpg" alt="Admissions" />
+        <img src="../src/assets/images/car2.jpg" alt="Admissions" />
       </Section>
-
-      <ContactContainer>
-        <video
-          controls
-          autoPlay
-          loop
-          muted
-          style={{ maxWidth: "500px", borderRadius: "10px" }}
-        >
-          <source src="../images/camp.mp4" type="video/mp4" />
-          Your browser does not support the video tag.
-        </video>
-
-        <ContactForm>
-          <h2>Contact Us</h2>
-          <label htmlFor="name">Name</label>
-          <input
-            type="text"
-            id="name"
-            name="name"
-            placeholder="Your Name"
-            required
-          />
-
-          <label htmlFor="email">Email</label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            placeholder="Your Email"
-            required
-          />
-
-          <label htmlFor="message">Message</label>
-          <textarea
-            id="message"
-            name="message"
-            rows="5"
-            placeholder="Your Message"
-            required
-          ></textarea>
-
-          <button type="submit">Send Message</button>
-        </ContactForm>
-      </ContactContainer>
+      <Sections>
+        {" "}
+        <Contact />
+      </Sections>
     </Container>
   )
 }

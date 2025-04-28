@@ -7,17 +7,22 @@ const NavbarContainer = styled.nav`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 6px double #07611c;
+  border-bottom: 6px double #000000;
 
   width: 100%;
   margin: 0;
-  padding: 0.4rem 3rem;
+  padding: 0rem 3rem;
   top: 0;
   left: 0;
   background-color: white;
   box-sizing: border-box;
   z-index: 1000;
   position: sticky;
+  a {
+    text-decoration: none;
+
+    color: #07611c;
+  }
 
   @media (max-width: 768px) {
     padding: 0 1rem;
@@ -26,16 +31,20 @@ const NavbarContainer = styled.nav`
 `
 
 const Logo = styled.h1`
-  font-size: 1.5rem;
+  font-size: 1rem;
   font-weight: bold;
   color: linear-gradient(to right, #07611c, red);
   display: flex;
   align-items: center;
   gap: 5px;
 
+  img {
+    width: auto;
+    height: 50px;
+  }
+
   &:hover {
     color: #07611c;
-    animation: bounce 1s;
   }
 `
 
@@ -53,6 +62,10 @@ const NavLinks = styled.ul`
     background-color: white;
     padding: 1rem;
     border-radius: 5px;
+    position: absolute;
+    top: 60px; /* Position below the hamburger menu */
+    left: 0;
+    z-index: 999;
   }
 `
 
@@ -105,7 +118,7 @@ const Dropdown = styled.div`
     padding: 0;
 
     a {
-      color: white;
+      color: black;
       font-size: 1rem;
     }
   }
@@ -142,12 +155,19 @@ const Navbar = () => {
     setIsOpen(!isOpen)
   }
 
+  const closeMenu = () => {
+    setIsOpen(false) // Close the menu when a link is clicked
+  }
+
   return (
     <NavbarContainer>
-      <Logo>
-        <Image src="../../images/logo.png" alt="Logo" />
-        Eltons Christian School
-      </Logo>
+      <a href="/">
+        <Logo>
+          <Image src="../src/assets/images/hlogo.png" alt="Logo" /> Eltons
+          <br />
+          Christian School
+        </Logo>
+      </a>
       <Hamburger onClick={toggleMenu}>
         <span></span>
         <span></span>
@@ -155,29 +175,47 @@ const Navbar = () => {
       </Hamburger>
       <NavLinks isOpen={isOpen}>
         <NavLink>
-          <Link to="/">Home</Link>
+          <Link to="/" onClick={closeMenu}>
+            Home
+          </Link>
         </NavLink>
         <NavLink>
-          <Link to="/about-us">About Us</Link>
+          <Link to="/about-us" onClick={closeMenu}>
+            About Us
+          </Link>
         </NavLink>
         <NavLink>
-          <Link to="/curriculum">Curriculum</Link>
+          <Link to="/curriculum" onClick={closeMenu}>
+            Curriculum
+          </Link>
         </NavLink>
         <NavLink>
-          <Link to="/gallery">Gallery</Link>
+          <Link to="/gallery" onClick={closeMenu}>
+            Gallery
+          </Link>
         </NavLink>
         <NavLink>
-          <Link to="/admissions">Admissions</Link>
+          <Link to="/admissions" onClick={closeMenu}>
+            Admissions
+          </Link>
         </NavLink>
         <NavLink>
-          <a href="#section">Section</a>
+          <a href="#section" onClick={closeMenu}>
+            Section
+          </a>
           <Dropdown>
-            <a href="#junior">Junior</a>
-            <a href="#senior">Senior</a>
+            <a href="/junior" onClick={closeMenu}>
+              Junior
+            </a>
+            <a href="/senior" onClick={closeMenu}>
+              Senior
+            </a>
           </Dropdown>
         </NavLink>
         <NavLink>
-          <Link to="/contact-us">Contact Us</Link>
+          <Link to="/contact-us" onClick={closeMenu}>
+            Contact Us
+          </Link>
         </NavLink>
       </NavLinks>
     </NavbarContainer>

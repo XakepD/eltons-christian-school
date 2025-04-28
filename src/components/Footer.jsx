@@ -1,10 +1,21 @@
 import React from "react"
 import styled from "styled-components"
+import {
+  FaEnvelope,
+  FaPhoneAlt,
+  FaMapMarkerAlt,
+  FaFacebook,
+  FaInstagram,
+  FaWhatsapp,
+  FaTiktok,
+} from "react-icons/fa" // Import additional icons
 
 const FooterContainer = styled.footer`
-  background: url(../images/foot.jpg);
+  background: url(../src/assets/images/foot.jpg);
   background-size: cover;
   background-color: #000000;
+
+  backdrop-filter: blur(5px) !important;
   color: white;
   padding: 20px 50px;
 `
@@ -46,14 +57,13 @@ const Column = styled.div`
   }
 `
 
-const SocialIcons = styled.div`
+const SocialLinks = styled.div`
   display: flex;
-  justify-content: center;
   gap: 1rem;
 
   a {
     color: white;
-    font-size: 1.5rem;
+    font-size: 1rem;
     transition: color 0.3s;
 
     &:hover {
@@ -96,32 +106,47 @@ const Footer = () => {
         {/* Contact Section */}
         <Column>
           <h3>Contact Us</h3>
-          <p>Email: info@eltonsschool.com</p>
-          <p>Phone: +123 456 7890</p>
-          <p>Address: 123 School Lane, Education City</p>
-          <SocialIcons>
+          <p>
+            {" "}
+            <FaEnvelope /> Email: eltonchristianschool@gmail.com
+          </p>
+          <p>
+            <FaPhoneAlt /> Phone: +2348036702706
+          </p>
+          <p>
+            <FaMapMarkerAlt /> Address: 2 King Jesus street, off Peace Drive,
+            Abuloma, Rivers
+          </p>
+          <SocialLinks>
             <a
-              href="https://facebook.com"
+              href="https://www.facebook.com/eltonschoolphc"
               target="_blank"
               rel="noopener noreferrer"
             >
-              <i className="fab fa-facebook"></i>
+              <FaFacebook />
             </a>
             <a
-              href="https://twitter.com"
+              href="https://www.instagram.com/eltonschool2007/"
               target="_blank"
               rel="noopener noreferrer"
             >
-              <i className="fab fa-twitter"></i>
+              <FaInstagram />
             </a>
             <a
-              href="https://instagram.com"
+              href="https://wa.me/+2348036702706"
               target="_blank"
               rel="noopener noreferrer"
             >
-              <i className="fab fa-instagram"></i>
+              <FaWhatsapp />
             </a>
-          </SocialIcons>
+            <a
+              href="https://www.tiktok.com"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <FaTiktok />
+            </a>
+          </SocialLinks>
         </Column>
       </FooterContent>
       <Copyright>

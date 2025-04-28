@@ -5,9 +5,11 @@ body {
   top: 0;
   font-family: "Poppins", sans-serif;
   overflow-x: hidden;
-  background: url("../images/img9.jpg") no-repeat center center fixed;
+  background: url("src/assets/images/bg-image.jpg") no-repeat center center
+    fixed;
   background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed;
+
   background-position: center;
 }

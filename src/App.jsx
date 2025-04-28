@@ -10,6 +10,8 @@ import Curriculum from "./pages/Curriculum"
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom"
 import ToGallery from "./pages/ToGallery"
 import AdminLogin from "./pages/admin/AdminLogin"
+import JuniorHome from "./pages/JuniorHome"
+import SeniorHome from "./pages/SeniorHome"
 
 // Layout component to conditionally render Navbar and Footer
 const Layout = ({ children, hideNavbarFooter }) => {
@@ -44,7 +46,7 @@ function App() {
           }
         />
         <Route
-          path="/gallery"
+          path="/gallery/:slug"
           element={
             <Layout hideNavbarFooter={false}>
               <Gallery />
@@ -76,10 +78,26 @@ function App() {
           }
         />
         <Route
-          path="/galleryc"
+          path="/gallery"
           element={
             <Layout hideNavbarFooter={false}>
               <ToGallery />
+            </Layout>
+          }
+        />
+        <Route
+          path="/junior"
+          element={
+            <Layout hideNavbarFooter={false}>
+              <JuniorHome />
+            </Layout>
+          }
+        />
+        <Route
+          path="/senior"
+          element={
+            <Layout hideNavbarFooter={false}>
+              <SeniorHome />
             </Layout>
           }
         />
