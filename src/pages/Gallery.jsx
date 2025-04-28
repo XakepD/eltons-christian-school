@@ -212,7 +212,7 @@ const Gallery = () => {
         {images.map((image, index) => (
           <ImageCard key={image.id}>
             <Image
-              src={`http://127.0.0.1:8000/${image.image}`}
+              src={`https://eltonschristianschool.onrender.com/${image.image}`}
               alt={image.gallery}
               onClick={() => openModal(index)}
             />
@@ -226,7 +226,7 @@ const Gallery = () => {
           <ModalContent>
             <CloseButton onClick={closeModal} />
             <img
-              src={`http://127.0.0.1:8000/${images[currentImageIndex].image}`}
+              src={`https://eltonschristianschool.onrender.com/${images[currentImageIndex].image}`}
               alt={images[currentImageIndex].gallery}
             />
             <button onClick={downloadImage}>
