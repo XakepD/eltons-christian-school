@@ -1,9 +1,31 @@
 import React from "react"
 import styled from "styled-components"
 import { FaEye, FaHome, FaHistory, FaUserTie } from "react-icons/fa"
+import Welcome from "../components/Welcome"
+const theme = {
+  primary: "#1a5276",
+  secondary: "#d4ac0d",
+  accent: "#e74c3c",
+  light: "#f8f9fa",
+  dark: "#343a40",
+  text: "#333",
+  white: "#ffffff",
+  fonts: {
+    primary: "'Open Sans', sans-serif",
+    secondary: "'Montserrat', sans-serif",
+  },
+  breakpoints: {
+    sm: "576px",
+    md: "768px",
+    lg: "992px",
+    xl: "1200px",
+  },
+}
 
 const Container = styled.div`
-  color: #333;
+  background-color: ${theme.light};
+  color: ${theme.text};
+  font-family: ${theme.fonts.primary};
 `
 
 const Header = styled.div`
@@ -11,207 +33,188 @@ const Header = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 3rem;
-  background: url("../src/assets/images/banner.jpg") no-repeat center center;
+  padding: 4rem 2rem;
+  background: linear-gradient(rgba(26, 82, 118, 0.8), rgba(26, 82, 118, 0.9)),
+    url("../src/assets/images/banner.jpg") no-repeat center center;
   background-size: cover;
-  color: white;
+  color: ${theme.white};
   text-align: center;
 
   h1 {
     font-size: 3rem;
-    animation: fadeInDown 1.5s;
     font-weight: bold;
+    margin-bottom: 1rem;
+    font-family: ${theme.fonts.secondary};
   }
 
   p {
     font-size: 1.2rem;
-    margin-top: 0.5rem;
-    animation: fadeInUp 1.5s;
+    max-width: 800px;
+    margin: 0 auto;
   }
 `
 
-const About = styled.div`
+const AboutSection = styled.section`
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 4rem 2rem;
+  background: linear-gradient(rgba(26, 82, 118, 0.8), rgba(26, 82, 118, 0.9)),
+    url("../src/assets/images/sch.jpg") no-repeat center center;
+  background-size: cover;
+`
+
+const FeaturesGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  justify-content: center;
-  align-items: center;
-  align-content: center;
-  justify-items: center;
-  row-gap: 20px;
-  flex-wrap: wrap;
-  padding: 4rem;
-  height: 100%;
+  gap: 2rem;
+  margin-top: 3rem;
+`
 
-  @media (max-width: 768px) {
-    grid-template-columns: 1fr;
-    padding: 2rem;
-    height: auto;
-    div {
-      max-width: 100%;
-    }
+const FeatureCard = styled.div`
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  color: ${theme.text};
+  padding: 2rem;
+  border-radius: 8px;
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
   }
 
-  div {
-    padding: 1rem;
-    background: whitesmoke;
-    max-width: 300px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    cursor: pointer;
-    height: inherit;
-    @media (max-width: 768px) {
-      max-width: 100%;
-    }
+  svg {
+    font-size: 3rem;
+    color: ${theme.secondary};
+    margin-bottom: 1rem;
+  }
 
-    &:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
-    }
+  h2 {
+    font-size: 1.5rem;
+    color: ${theme.white};
+    margin-bottom: 1rem;
+    font-family: ${theme.fonts.secondary};
+  }
 
-    span {
-      font-size: 50px;
-      color: #07611c;
-      text-align: center;
-      width: 100%;
-    }
-
-    h1 {
-      font-weight: bold;
-      font-size: 1.5rem;
-      margin: 1rem 0;
-    }
-
-    p {
-      font-size: 0.9rem;
-      line-height: 1.5;
-      color: #555;
-    }
+  p {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: ${theme.white};
   }
 `
 
-const TeamSection = styled.div`
-  padding: 4rem 2rem; /* Blue gradient */
+const TeamSection = styled.section`
+  background-color: ${theme.white};
+  padding: 4rem 2rem;
   text-align: center;
-  border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-
-  h2 {
-    font-size: 2.5rem;
-    color: #004d40; /* Cool dark teal */
-    margin-bottom: 2rem;
-  }
 `
 
 const TeamGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 2rem;
+  margin-top: 3rem;
 `
 
 const TeamCard = styled.div`
-  background: #ffffff;
-  border-radius: 10px;
+  background: ${theme.white};
+  border-radius: 8px;
   padding: 2rem;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   text-align: center;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: all 0.3s ease;
 
   &:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
   }
 
   img {
-    width: 100px;
-    height: 100px;
+    width: 120px;
+    height: 120px;
     border-radius: 50%;
-    margin-bottom: 1rem;
     object-fit: cover;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin: 0 auto 1rem;
+    border: 3px solid ${theme.secondary};
   }
 
   h3 {
     font-size: 1.2rem;
-    color: #004d40; /* Cool dark teal */
+    color: ${theme.primary};
     margin-bottom: 0.5rem;
+    font-family: ${theme.fonts.secondary};
   }
 
   p {
     font-size: 1rem;
-    color: #555;
+    color: ${theme.text};
   }
 `
 
 const AboutUs = () => {
   return (
     <Container>
-      {/* Header Section */}
       <Header>
         <h1>About Us</h1>
         <p>Learn more about Eltons Christian School</p>
       </Header>
 
-      {/* About Section */}
-      <About>
-        <div>
-          <span>
-            <FaHome />
-          </span>
-          <h1>Mission</h1>
-          <p>
-            Committed to partnering with parents to educate the minds and
-            nurture the hearts of learners for the glory of God in a
-            Christ-centered environment.
-          </p>
-        </div>
-        <div>
-          <span>
-            <FaEye />
-          </span>
-          <h1>Vision</h1>
-          <p>
-            To see lives transformed by the power of the gospel of Jesus Christ
-            through Christian Education.
-          </p>
-        </div>
-        <div>
-          <span>
-            <FaHistory />
-          </span>
-          <h1>History</h1>
-          <p>
-            Established in 2007, Eltons Christian School has been a beacon of
-            education and faith. Our journey began with a vision to see lives
-            transformed by the power of the gospel of Jesus Christ through
-            Christian Education. Over the years, we've grown into a vibrant
-            community of learners, teachers, and families dedicated to
-            excellence.
-          </p>
-        </div>
-      </About>
+      <Welcome />
 
-      {/* Our Team Section */}
+      <AboutSection>
+        <FeaturesGrid>
+          <FeatureCard>
+            <FaHome />
+            <h2>Our Mission</h2>
+            <p>
+              Committed to partnering with parents to educate the minds and
+              nurture the hearts of learners for the glory of God in a
+              Christ-centered environment.
+            </p>
+          </FeatureCard>
+          <FeatureCard>
+            <FaHistory />
+            <h2>Our History</h2>
+            <p>
+              Established in 2007, Eltons Christian School has been a beacon of
+              education and faith. Our journey began with a vision to see lives
+              transformed by the power of the gospel of Jesus Christ through
+              Christian Education.
+            </p>
+          </FeatureCard>
+          <FeatureCard>
+            <FaEye />
+            <h2>Our Vision</h2>
+            <p>
+              To see lives transformed by the power of the gospel of Jesus
+              Christ through Christian Education.
+            </p>
+          </FeatureCard>
+        </FeaturesGrid>
+      </AboutSection>
+
       <TeamSection>
         <h2>Meet Our Team</h2>
         <TeamGrid>
           <TeamCard>
-            <img src="../src/assets/images/team1.jpg" alt="Team Member 1" />
-            <h3>John Doe</h3>
+            <img src="../src/assets/images/team-01.png" alt="Team Member 1" />
+            <h3>Mr Alfred</h3>
             <p>Principal</p>
           </TeamCard>
           <TeamCard>
-            <img src="../src/assets/images/team2.jpg" alt="Team Member 2" />
-            <h3>Jane Smith</h3>
-            <p>Vice Principal</p>
+            <img src="../src/assets/images/team-02.png" alt="Team Member 2" />
+            <h3>Mrs Eboh</h3>
+            <p>Admin</p>
           </TeamCard>
           <TeamCard>
-            <img src="../src/assets/images/team3.jpg" alt="Team Member 3" />
-            <h3>Michael Brown</h3>
-            <p>Head of Academics</p>
+            <img src="../src/assets/images/team-03.png" alt="Team Member 3" />
+            <h3>Mrs Omolara Effiom</h3>
+            <p>Proprietress</p>
           </TeamCard>
           <TeamCard>
-            <img src="../src/assets/images/team4.jpg" alt="Team Member 4" />
+            <img src="../src/assets/images/team-04.png" alt="Team Member 4" />
             <h3>Emily White</h3>
             <p>Head of Administration</p>
           </TeamCard>

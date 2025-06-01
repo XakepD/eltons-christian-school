@@ -2,26 +2,55 @@ import React, { useEffect, useState } from "react"
 import styled from "styled-components"
 import axios from "axios"
 import { Link } from "react-router-dom"
+const theme = {
+  primary: "#1a5276",
+  secondary: "#d4ac0d",
+  accent: "#e74c3c",
+  light: "#f8f9fa",
+  dark: "#343a40",
+  text: "#333",
+  white: "#ffffff",
+  fonts: {
+    primary: "'Open Sans', sans-serif",
+    secondary: "'Montserrat', sans-serif",
+  },
+  breakpoints: {
+    sm: "576px",
+    md: "768px",
+    lg: "992px",
+    xl: "1200px",
+  },
+}
 
-const Container = styled.div``
+const Container = styled.div`
+  background-color: ${theme.light};
+  color: ${theme.text};
+  font-family: ${theme.fonts.primary};
+`
 
 const Header = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 4rem 2rem;
+  background: linear-gradient(rgba(26, 82, 118, 0.8), rgba(26, 82, 118, 0.9)),
+    url("../src/assets/images/banner.jpg") no-repeat center center;
+  background-size: cover;
+  color: ${theme.white};
   text-align: center;
-  margin-bottom: 2rem;
-  padding: 3rem;
-  background: url("../src/assets/images/banner.jpg") no-repeat center center;
 
   h1 {
-    font-size: 2.5rem;
-    color: #07611c;
-    animation: fadeInDown 1.5s;
+    font-size: 3rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    font-family: ${theme.fonts.secondary};
   }
 
   p {
     font-size: 1.2rem;
-    color: #333;
-    margin-top: 0.5rem;
-    animation: fadeInUp 1.5s;
+    max-width: 800px;
+    margin: 0 auto;
   }
 `
 

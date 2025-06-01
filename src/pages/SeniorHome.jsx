@@ -1,188 +1,131 @@
-import React, { useEffect } from "react"
+import React from "react"
 import styled from "styled-components"
-import Slider from "react-slick"
-import "slick-carousel/slick/slick.css"
-import "slick-carousel/slick/slick-theme.css"
-import AOS from "aos"
-import "aos/dist/aos.css"
+import SeniorSlides from "../components/SeniorSlides"
 import {
   FaChalkboardTeacher,
   FaBook,
   FaUserGraduate,
   FaStar,
 } from "react-icons/fa"
-
-import SeniorSlides from "../components/SeniorSlides"
+const theme = {
+  primary: "#1a5276",
+  secondary: "#d4ac0d",
+  accent: "#e74c3c",
+  light: "#f8f9fa",
+  dark: "#343a40",
+  text: "#333",
+  white: "#ffffff",
+  fonts: {
+    primary: "'Open Sans', sans-serif",
+    secondary: "'Montserrat', sans-serif",
+  },
+  breakpoints: {
+    sm: "576px",
+    md: "768px",
+    lg: "992px",
+    xl: "1200px",
+  },
+}
 
 const Container = styled.div`
-  background: #121212; /* Dark background */
-  font-family: "Segoe UI", sans-serif;
-  color: #e0e0e0; /* Light text color */
-`
-const WhyChooseUsSection = styled.section`
-  padding: 3rem 2rem;
-  background: #1e1e2f; /* Dark section background */
-  border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
-  margin: 2rem 0;
-
-  h2 {
-    text-align: center;
-    font-size: 2.5rem;
-    color: #64b5f6; /* Light blue */
-    margin-bottom: 2rem;
-  }
-
-  .features {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 2rem;
-    flex-wrap: wrap;
-    height: 100%;
-
-    .feature {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      height: inherit;
-      background: linear-gradient(
-        135deg,
-        #424242,
-        #616161
-      ); /* Dark gray gradient */
-      padding: 2rem;
-      border-radius: 10px;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
-      width: 250px;
-      svg {
-        font-size: 3rem;
-        color: #64b5f6; /* Light blue */
-        margin-bottom: 1rem;
-      }
-
-      h3 {
-        font-size: 1.5rem;
-        color: #64b5f6; /* Light blue */
-        margin-bottom: 0.5rem;
-      }
-
-      p {
-        font-size: 1rem;
-        color: #bdbdbd; /* Light gray */
-      }
-    }
-  }
-`
-const Header = styled.header`
-  text-align: center;
-  padding: 3rem 0;
-  color: #ffffff;
-  background: linear-gradient(
-    135deg,
-    #0d47a1,
-    #1565c0
-  ); /* Deep blue gradient */
-  border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
-
-  h1 {
-    font-size: 3rem;
-    margin-bottom: 1rem;
-    animation: fadeInDown 1.5s;
-  }
-
-  p {
-    font-size: 1.2rem;
-    animation: fadeInUp 1.5s;
-  }
-`
-
-const CarouselContainer = styled.div`
-  margin: 2rem 0;
-  border-radius: 10px;
-  overflow: hidden;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
-
-  img {
-    width: 100%;
-    height: 400px;
-    object-fit: cover;
-  }
+  background-color: ${theme.light};
+  color: ${theme.text};
+  font-family: ${theme.fonts.primary};
+  overflow-x: hidden;
 `
 
 const Section = styled.section`
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 4rem 2rem;
   display: flex;
-  flex-direction: ${({ reverse }) => (reverse ? "row-reverse" : "row")};
   align-items: center;
-  justify-content: space-between;
-  margin: 2rem 0;
-  padding: 2rem;
-  background: #1e1e2f; /* Dark section background */
-  border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
-  animation: fadeIn 1s ease-in-out;
-  gap: 2rem;
+  gap: 3rem;
 
-  @media (max-width: 768px) {
+  @media (max-width: ${theme.breakpoints.md}) {
     flex-direction: column;
-    text-align: center;
+    padding: 2rem 1rem;
   }
 
-  h2 {
-    font-size: 2rem;
-    color: #64b5f6; /* Light blue */
-    margin-bottom: 1rem;
+  &:nth-child(even) {
+    flex-direction: row-reverse;
+    background-color: ${theme.white};
+
+    @media (max-width: ${theme.breakpoints.md}) {
+      flex-direction: column;
+    }
   }
 
-  p {
-    font-size: 1.1rem;
-    line-height: 1.6;
+  div {
+    flex: 1;
+    h2 {
+      font-size: 2rem;
+      color: ${theme.primary};
+      margin-bottom: 1.5rem;
+      font-family: ${theme.fonts.secondary};
+    }
+
+    p {
+      font-size: 1.1rem;
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+    }
   }
 
   img {
-    width: 100%;
-    max-width: 400px;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
-  }
-`
-const Sections = styled.section`
-  padding: 2rem;
-`
-const ClassesGrid = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 2rem;
-  margin-top: 2rem;
-  @media (max-width: 768px) {
-    flex-wrap: wrap;
+    flex: 1;
+    max-width: 500px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   }
 `
 
-const ClassCard = styled.div`
-  background: linear-gradient(
-    135deg,
-    #424242,
-    #616161
-  ); /* Dark gray gradient */
-  padding: 1.5rem;
-  border-radius: 10px;
+const FeaturesSection = styled.section`
+  background-color: ${theme.primary};
+  padding: 4rem 2rem;
   text-align: center;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
-  animation: fadeInUp 1s ease-in-out;
+  color: ${theme.white};
 
-  min-height: 200px;
-  @media (max-width: 768px) {
-    height: auto;
+  h2 {
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+    font-family: ${theme.fonts.secondary};
+  }
+`
+
+const FeaturesGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+`
+
+const FeatureCard = styled.div`
+  background-color: ${theme.white};
+  padding: 2rem;
+  border-radius: 8px;
+  text-align: center;
+  color: ${theme.text};
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  svg {
+    font-size: 3rem;
+    color: ${theme.secondary};
+    margin-bottom: 1rem;
   }
 
   h3 {
     font-size: 1.5rem;
-    color: #64b5f6; /* Light blue */
+    color: ${theme.primary};
     margin-bottom: 1rem;
+    font-family: ${theme.fonts.secondary};
   }
 
   p {
@@ -191,151 +134,134 @@ const ClassCard = styled.div`
   }
 `
 
-const TestimonialSection = styled.div`
-  margin: 2rem 0;
-  padding: 2rem;
-  background: #1e1e2f; /* Dark background */
-  border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
-  text-align: center;
+const ClassesGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+`
 
-  h2 {
-    font-size: 2rem;
-    color: #64b5f6; /* Light blue */
-    margin-bottom: 1rem;
+const ClassCard = styled.div`
+  background-color: ${theme.white};
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  transition: all 0.3s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
   }
 
-  blockquote {
+  h3 {
+    font-size: 1.3rem;
+    color: ${theme.primary};
+    margin-bottom: 1rem;
+    font-family: ${theme.fonts.secondary};
+  }
+
+  p {
     font-size: 1rem;
-    font-style: italic;
-    color: #bdbdbd; /* Light gray */
-    margin: 1rem 0;
+    line-height: 1.5;
   }
 `
 
 const SeniorHome = () => {
-  useEffect(() => {
-    AOS.init({
-      duration: 1000,
-      once: false,
-    })
-  }, [])
-
   return (
     <Container>
-      {/* Header Section */}
-
       <SeniorSlides />
 
-      {/* Carousel Section */}
-      <Sections>
-        {/* About Section */}
-        <Section data-aos="fade-up">
-          <div>
-            <h2>About Our Senior Section</h2>
+      <Section>
+        <div>
+          <h2>About Our Senior Section</h2>
+          <p>
+            Our Senior Section is dedicated to preparing students for higher
+            education and life beyond school. We focus on academic excellence,
+            leadership development, and character building. Our curriculum is
+            designed to challenge students while providing the support they need
+            to succeed.
+          </p>
+        </div>
+        <img src="../src/assets/images/IMG_2508.jpg" alt="Senior Section" />
+      </Section>
+
+      <Section>
+        <div>
+          <h2>Our Classes</h2>
+          <p>
+            We offer a range of classes tailored to meet the academic and
+            developmental needs of our senior students:
+          </p>
+          <ClassesGrid>
+            <ClassCard>
+              <h3>JSS 1 (Kabod)</h3>
+              <p>Building a strong foundation in core subjects.</p>
+            </ClassCard>
+            <ClassCard>
+              <h3>JSS 2 (Kadosh)</h3>
+              <p>Encouraging critical thinking and advanced learning.</p>
+            </ClassCard>
+            <ClassCard>
+              <h3>JSS 3 (Khayl)</h3>
+              <p>Preparing for external exams and challenges.</p>
+            </ClassCard>
+            <ClassCard>
+              <h3>SSS 1</h3>
+              <p>Specialized subjects for career paths.</p>
+            </ClassCard>
+          </ClassesGrid>
+        </div>
+      </Section>
+
+      <FeaturesSection>
+        <h2>Why Choose Our Senior Section?</h2>
+        <FeaturesGrid>
+          <FeatureCard>
+            <FaChalkboardTeacher />
+            <h3>Experienced Teachers</h3>
             <p>
-              Our Senior Section is dedicated to preparing students for higher
-              education and life beyond school. We focus on academic excellence,
-              leadership development, and character building. Our curriculum is
-              designed to challenge students while providing the support they
-              need to succeed.
+              Our teachers are highly qualified and dedicated to nurturing every
+              student's potential.
             </p>
-          </div>
-
-          <img src="../src/assets/images/IMG_2508.jpg" alt="Slide 5" />
-        </Section>
-
-        {/* Classes Section */}
-        <Section data-aos="fade-up" reverse>
-          <div>
-            <h2>Our Classes</h2>
+          </FeatureCard>
+          <FeatureCard>
+            <FaBook />
+            <h3>Comprehensive Curriculum</h3>
             <p>
-              We offer a range of classes tailored to meet the academic and
-              developmental needs of our senior students:
+              Our curriculum is designed to foster academic excellence and
+              critical thinking.
             </p>
-            <ClassesGrid>
-              <ClassCard data-aos="fade-up">
-                <h3>JSS 1 (Kabod)</h3>
-                <p>
-                  Building a strong foundation in core subjects and fostering
-                  curiosity.
-                </p>
-              </ClassCard>
-              <ClassCard data-aos="fade-up">
-                <h3>JSS 2 (Kadosh)</h3>
-                <p>
-                  Encouraging critical thinking and preparing students for
-                  advanced learning.
-                </p>
-              </ClassCard>
-              <ClassCard data-aos="fade-up">
-                <h3>JSS 3 (Khayl)</h3>
-                <p>
-                  Preparing students for external exams and academic challenges.
-                </p>
-              </ClassCard>
-              <ClassCard data-aos="fade-up">
-                <h3>SSS 1</h3>
-                <p>
-                  Introducing specialized subjects and preparing students for
-                  their chosen career paths.
-                </p>
-              </ClassCard>
-            </ClassesGrid>
-          </div>
-        </Section>
-
-        {/* Testimonials Section */}
-        <WhyChooseUsSection data-aos="fade-up">
-          <h2>Why Choose Us?</h2>
-          <div className="features">
-            <div className="feature" data-aos="fade-up">
-              <FaChalkboardTeacher />
-              <h3>Experienced Teachers</h3>
-              <p>
-                Our teachers are highly qualified and dedicated to nurturing
-                every student’s potential.
-              </p>
-            </div>
-            <div className="feature" data-aos="fade-up">
-              <FaBook />
-              <h3>Comprehensive Curriculum</h3>
-              <p>
-                Our curriculum is designed to foster academic excellence and
-                critical thinking.
-              </p>
-            </div>
-            <div className="feature" data-aos="fade-up">
-              <FaUserGraduate />
-              <h3>Leadership Development</h3>
-              <p>
-                We provide opportunities for students to grow as leaders and
-                role models.
-              </p>
-            </div>
-            <div className="feature" data-aos="fade-up">
-              <FaStar />
-              <h3>Character Building</h3>
-              <p>
-                We emphasize moral and ethical values to shape well-rounded
-                individuals.
-              </p>
-            </div>
-          </div>
-        </WhyChooseUsSection>
-
-        {/* Contact Section */}
-        <Section data-aos="fade-up">
-          <div>
-            <h2>Get in Touch</h2>
+          </FeatureCard>
+          <FeatureCard>
+            <FaUserGraduate />
+            <h3>Leadership Development</h3>
             <p>
-              Want to learn more about our Senior Section? Contact us today and
-              let us help you take the next step in your academic journey!
+              We provide opportunities for students to grow as leaders and role
+              models.
             </p>
-          </div>
-          <img src="../src/assets/images/IMG_3583.jpg" alt="Slide 5" />
-        </Section>
-      </Sections>
+          </FeatureCard>
+          <FeatureCard>
+            <FaStar />
+            <h3>Character Building</h3>
+            <p>
+              We emphasize moral and ethical values to shape well-rounded
+              individuals.
+            </p>
+          </FeatureCard>
+        </FeaturesGrid>
+      </FeaturesSection>
+
+      <Section>
+        <div>
+          <h2>Get in Touch</h2>
+          <p>
+            Want to learn more about our Senior Section? Contact us today and
+            let us help you take the next step in your academic journey!
+          </p>
+        </div>
+        <img src="../src/assets/images/IMG_3583.jpg" alt="Contact Us" />
+      </Section>
     </Container>
   )
 }

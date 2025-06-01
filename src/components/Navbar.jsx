@@ -1,223 +1,275 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import styled from "styled-components"
-import "animate.css"
-import { Link } from "react-router-dom"
+import { Link, useLocation } from "react-router-dom"
+const theme = {
+  primary: "#1a5276",
+  secondary: "#d4ac0d",
+  accent: "#e74c3c",
+  light: "#f8f9fa",
+  dark: "#343a40",
+  text: "#333",
+  white: "#ffffff",
+}
 
 const NavbarContainer = styled.nav`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border-bottom: 6px double #000000;
-
-  width: 100%;
-  margin: 0;
-  padding: 0rem 3rem;
-  top: 0;
-  left: 0;
-  background-color: white;
-  box-sizing: border-box;
-  z-index: 1000;
+  background-color: ${theme.white};
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   position: sticky;
-  a {
-    text-decoration: none;
-
-    color: #07611c;
-  }
-
-  @media (max-width: 768px) {
-    padding: 0 1rem;
-    flex-wrap: wrap;
-  }
+  top: 0;
+  z-index: 1000;
+  padding: 1rem 2rem;
 `
 
-const Logo = styled.h1`
-  font-size: 1rem;
-  font-weight: bold;
-  color: linear-gradient(to right, #07611c, red);
+const NavContent = styled.div`
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`
+
+const Logo = styled(Link)`
   display: flex;
   align-items: center;
-  gap: 5px;
+  text-decoration: none;
 
   img {
-    width: auto;
     height: 50px;
+    margin-right: 1rem;
   }
 
-  &:hover {
-    color: #07611c;
+  .logo-text {
+    display: flex;
+    flex-direction: column;
+
+    h1 {
+      font-size: 1.5rem;
+      color: ${theme.primary};
+      margin: 0;
+      line-height: 1.2;
+      @media (max-width: 768px) {
+        font-size: 1.2rem;
+      }
+    }
+
+    p {
+      font-size: 0.8rem;
+      color: ${theme.text};
+      margin: 0;
+    }
   }
 `
 
 const NavLinks = styled.ul`
   display: flex;
-  flex: 2;
   list-style: none;
-  justify-content: center;
-  gap: 1.5rem;
+  gap: 2rem;
 
   @media (max-width: 768px) {
+    position: fixed;
+    left: ${({ isOpen }) => (isOpen ? "0" : "-100%")};
+    height: calc(100vh - 80px);
+    top: 70px;
     flex-direction: column;
-    width: 100%;
-    display: ${({ isOpen }) => (isOpen ? "flex" : "none")};
-    background-color: white;
-    padding: 1rem;
-    border-radius: 5px;
-    position: absolute;
-    top: 60px; /* Position below the hamburger menu */
-    left: 0;
+    background-color: ${theme.white};
+    padding: 2rem;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    transition: left 0.3s ease;
     z-index: 999;
   }
 `
 
-const NavLink = styled.li`
+const NavItem = styled.li`
   position: relative;
 
   a {
+    color: ${theme.text};
     text-decoration: none;
-    color: #000000;
-    font-size: 1rem;
     font-weight: 600;
-    animation: swing 1s;
-    transition: color 0.3s;
+    padding: 0.5rem 0;
+    position: relative;
+    transition: color 0.3s ease;
+    font-size: 0.8rem;
+
+    &::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background-color: ${theme.secondary};
+      transition: width 0.3s ease;
+    }
 
     &:hover {
-      color: #07611c;
-      animation: swing 1s;
+      color: ${theme.primary};
+
+      &::after {
+        width: 100%;
+      }
+    }
+
+    &.active {
+      color: ${theme.primary};
+
+      &::after {
+        width: 100%;
+      }
     }
   }
 `
 
-const Dropdown = styled.div`
-  position: absolute;
-  top: 100%;
-  left: 0;
-  background-color: white;
-  padding: 0.5rem 1rem;
-  border-radius: 5px;
+const MobileMenuButton = styled.button`
+  background: none;
+  border: none;
+  cursor: pointer;
   display: none;
-  flex-direction: column;
-
-  ${NavLink}:hover & {
-    display: flex;
-  }
-
-  a {
-    color: black;
-    padding: 0.3rem 0;
-    font-size: 0.9rem;
-
-    &:hover {
-      color: #07611c;
-    }
-  }
 
   @media (max-width: 768px) {
-    position: static;
-    display: flex;
-    background-color: transparent;
-    padding: 0;
-
-    a {
-      color: black;
-      font-size: 1rem;
-    }
+    display: block;
   }
-`
-
-const Hamburger = styled.div`
-  display: none;
-  flex-direction: column;
-  gap: 5px;
-  cursor: pointer;
 
   span {
+    display: block;
     width: 25px;
     height: 3px;
-    background-color: #000000;
-    border-radius: 2px;
-  }
+    background-color: ${theme.primary};
+    margin: 5px 0;
+    transition: all 0.3s ease;
 
-  @media (max-width: 768px) {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-`
+    &:nth-child(1) {
+      transform: ${({ isOpen }) =>
+        isOpen ? "rotate(45deg) translate(5px, 5px)" : "none"};
+    }
 
-const Image = styled.img`
-  width: 30px;
+    &:nth-child(2) {
+      opacity: ${({ isOpen }) => (isOpen ? "0" : "1")};
+    }
+
+    &:nth-child(3) {
+      transform: ${({ isOpen }) =>
+        isOpen ? "rotate(-45deg) translate(5px, -5px)" : "none"};
+    }
+  }
 `
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false)
+  const location = useLocation()
 
   const toggleMenu = () => {
     setIsOpen(!isOpen)
   }
 
   const closeMenu = () => {
-    setIsOpen(false) // Close the menu when a link is clicked
+    setIsOpen(false)
   }
+
+  useEffect(() => {
+    // Close menu when route changes
+    closeMenu()
+  }, [location])
 
   return (
     <NavbarContainer>
-      <a href="/">
-        <Logo>
-          <Image src="../src/assets/images/hlogo.png" alt="Logo" /> Eltons
-          <br />
-          Christian School
+      <NavContent>
+        <Logo to="/" onClick={closeMenu}>
+          <img
+            src="../src/assets/images/hlogo.png"
+            alt="Eltons Christian School Logo"
+          />
+          <div className="logo-text">
+            <h1>Eltons Christian School</h1>
+            <p>Educating for Eternity</p>
+          </div>
         </Logo>
-      </a>
-      <Hamburger onClick={toggleMenu}>
-        <span></span>
-        <span></span>
-        <span></span>
-      </Hamburger>
-      <NavLinks isOpen={isOpen}>
-        <NavLink>
-          <Link to="/" onClick={closeMenu}>
-            Home
-          </Link>
-        </NavLink>
-        <NavLink>
-          <Link to="/about-us" onClick={closeMenu}>
-            About Us
-          </Link>
-        </NavLink>
-        <NavLink>
-          <Link to="/curriculum" onClick={closeMenu}>
-            Curriculum
-          </Link>
-        </NavLink>
-        <NavLink>
-          <Link to="/gallery" onClick={closeMenu}>
-            Gallery
-          </Link>
-        </NavLink>
-        <NavLink>
-          <Link to="/admissions" onClick={closeMenu}>
-            Admissions
-          </Link>
-        </NavLink>
-        <NavLink>
-          <a href="#section" onClick={closeMenu}>
-            Section
-          </a>
-          <Dropdown>
-            <a href="/junior" onClick={closeMenu}>
+
+        <MobileMenuButton
+          isOpen={isOpen}
+          onClick={toggleMenu}
+          aria-label="Menu"
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </MobileMenuButton>
+
+        <NavLinks isOpen={isOpen}>
+          <NavItem>
+            <Link
+              to="/"
+              className={location.pathname === "/" ? "active" : ""}
+              onClick={closeMenu}
+            >
+              Home
+            </Link>
+          </NavItem>
+          <NavItem>
+            <Link
+              to="/about-us"
+              className={location.pathname === "/about-us" ? "active" : ""}
+              onClick={closeMenu}
+            >
+              About Us
+            </Link>
+          </NavItem>
+          <NavItem>
+            <Link
+              to="/curriculum"
+              className={location.pathname === "/curriculum" ? "active" : ""}
+              onClick={closeMenu}
+            >
+              Curriculum
+            </Link>
+          </NavItem>
+          <NavItem>
+            <Link
+              to="/junior"
+              className={location.pathname === "/junior" ? "active" : ""}
+              onClick={closeMenu}
+            >
               Junior
-            </a>
-            <a href="/senior" onClick={closeMenu}>
+            </Link>
+          </NavItem>
+          <NavItem>
+            <Link
+              to="/senior"
+              className={location.pathname === "/senior" ? "active" : ""}
+              onClick={closeMenu}
+            >
               Senior
-            </a>
-          </Dropdown>
-        </NavLink>
-        <NavLink>
-          <Link to="/contact-us" onClick={closeMenu}>
-            Contact Us
-          </Link>
-        </NavLink>
-      </NavLinks>
+            </Link>
+          </NavItem>
+          <NavItem>
+            <Link
+              to="/gallery"
+              className={location.pathname === "/gallery" ? "active" : ""}
+              onClick={closeMenu}
+            >
+              Gallery
+            </Link>
+          </NavItem>
+          <NavItem>
+            <Link
+              to="/admissions"
+              className={location.pathname === "/admissions" ? "active" : ""}
+              onClick={closeMenu}
+            >
+              Admissions
+            </Link>
+          </NavItem>
+          <NavItem>
+            <Link
+              to="/contact-us"
+              className={location.pathname === "/contact-us" ? "active" : ""}
+              onClick={closeMenu}
+            >
+              Contact Us
+            </Link>
+          </NavItem>
+        </NavLinks>
+      </NavContent>
     </NavbarContainer>
   )
 }

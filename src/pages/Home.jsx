@@ -3,363 +3,552 @@ import styled from "styled-components"
 import Slider from "react-slick"
 import "slick-carousel/slick/slick.css"
 import "slick-carousel/slick/slick-theme.css"
-import "animate.css"
 import AOS from "aos"
 import "aos/dist/aos.css"
-import { useEffect } from "react"
-import { FaChalkboardTeacher, FaChild, FaBook, FaSmile } from "react-icons/fa"
+import {
+  FaChalkboardTeacher,
+  FaChild,
+  FaBook,
+  FaSmile,
+  FaCross,
+  FaUsers,
+  FaHeart,
+} from "react-icons/fa"
 import Welcome from "../components/Welcome"
 import Slides from "../components/Slides"
 import Contact from "../components/Contact"
 import MiniGallery from "../components/MiniGallery"
+import { useEffect } from "react"
+import FloatingButton from "../components/FloatingButton"
 
-const SocialLinks = styled.div`
-  display: flex;
-  gap: 1rem;
-  margin-top: 2rem;
-  position: absolute;
-  bottom: 20px;
+// Theme variables
+const theme = {
+  primary: "#1a5276",
+  secondary: "#d4ac0d",
+  accent: "#e74c3c",
+  light: "#f8f9fa",
+  dark: "#343a40",
+  text: "#333",
+  white: "#ffffff",
+  fonts: {
+    primary: "'Open Sans', sans-serif",
+    secondary: "'Montserrat', sans-serif",
+  },
+  breakpoints: {
+    sm: "576px",
+    md: "768px",
+    lg: "992px",
+    xl: "1200px",
+  },
+}
+
+const Container = styled.div`
+  background-color: ${theme.light};
+  color: ${theme.text};
+  overflow-x: hidden !important;
+`
+
+const Section = styled.section`
+  padding: 4rem 2rem;
+  max-width: 1200px;
+  background-color: ${theme.white};
+  margin: 0 auto;
+  position: relative;
+  overflow: hidden;
+
   @media (max-width: 768px) {
-    position: relative;
+    padding: 2rem 1rem;
+  }
+`
+
+const SectionTitle = styled.h2`
+  text-align: center;
+  font-size: 2.5rem;
+  color: ${theme.primary};
+  margin-bottom: 3rem;
+  position: relative;
+  font-family: ${theme.fonts.secondary};
+
+  span {
+    color: ${theme.white};
   }
 
-  a {
-    color: white;
-    font-size: 1.5rem;
-    transition: color 0.3s;
-
-    &:hover {
-      color: #5cff7c; /* Light green hover effect */
-    }
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background-color: ${theme.secondary};
   }
 `
 
 const WhyChooseUsSection = styled.section`
-  margin: 3rem 0;
-  padding: 4rem;
-  background: rgba(0, 0, 0, 0.1);
-  color: white;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  animation: fadeIn 1.5s;
-  display: flex;
-  gap: 30px;
-
-  h2 {
-    font-size: 2.5rem;
-    margin-bottom: 2rem;
-  }
-
-  .features {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-
-    .feature {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      background: #000000;
-      padding: 1.3rem;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-
-      svg {
-        font-size: 2.5rem;
-        color: #5cff7c;
-      }
-
-      div {
-        h3 {
-          font-size: 1.5rem;
-          margin-bottom: 0.5rem;
-        }
-
-        p {
-          font-size: 1rem;
-          line-height: 1.5;
-        }
-      }
-    }
-  }
-`
-const Sections = styled.div`
-  padding: 2rem 4rem;
-  @media (max-width: 768px) {
-    padding: 2rem;
-  }
-`
-const WhyContent = styled.div`
-  flex: 2;
-`
-const WhyImage = styled.div`
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  align-items: flex-end;
-  div {
-    img {
-      width: 100%;
-      filter: grayscale(0.5);
-      border-top: 20px solid #000000;
-    }
-  }
-  @media (max-width: 768px) {
-    display: none;
-  }
-`
-const Container = styled.div`
-  background: url("../src/assets/images/bg-image.jpg") no-repeat center center
-    fixed;
+  background: linear-gradient(rgba(26, 82, 118, 0.8), rgba(26, 82, 118, 0.9)),
+    url("../src/assets/images/car2.jpg") no-repeat center center;
   background-size: cover;
-  backdrop-filter: blur(35px);
-  color: #333;
-  @media (max-width: 768px) {
-    text-align: center;
+  color: ${theme.white};
+  padding: 4rem 2rem;
+  margin: 3rem 0;
+  position: relative;
+
+  @media (max-width: ${theme.breakpoints.sm}) {
+    background: linear-gradient(rgba(26, 82, 118, 0.8), rgba(26, 82, 118, 0.9)),
+      url("../src/assets/images/chse.jpg");
+    background-size: center;
+    background-position: center;
+    background-repeat: no-repeat;
   }
 `
 
-const Section = styled.section`
-  display: flex;
-  flex-direction: ${({ reverse }) => (reverse ? "row-reverse" : "row")};
-  align-items: center;
-  padding: 3rem 6rem;
+const FeaturesGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 2rem;
-  background: whitesmoke;
-  flex-wrap: wrap;
-  margin-top: 30px;
-  @media (max-width: 768px) {
-    padding: 2rem;
-    text-align: left;
+  margin-top: 2rem;
+`
+
+const FeatureCard = styled.div`
+  background: rgba(255, 255, 255, 0.1);
+  padding: 2rem;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  transition: transform 0.3s ease;
+  backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+
+  &:hover {
+    transform: translateY(-5px);
+    background: rgba(255, 255, 255, 0.2);
   }
 
-  div {
-    flex: 1;
+  svg {
+    font-size: 2.5rem;
+    color: ${theme.secondary};
+    flex-shrink: 0;
   }
 
-  img {
-    width: 100%;
-    max-width: 400px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    border-radius: 5px;
-    @media (max-width: 768px) {
-      max-width: 100%;
-    }
-  }
-
-  h2 {
-    color: #07611c;
-    font-size: 2rem;
+  h3 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    font-family: ${theme.fonts.secondary};
   }
 
   p {
     font-size: 1rem;
     line-height: 1.6;
+    font-family: ${theme.fonts.primary};
   }
-`
-
-const TestimonialsCarousel = styled(Slider)`
-  padding: 2rem;
-  background: #fff8f0;
-  text-align: center;
-
-  .slick-slide p {
-    font-size: 1.1rem;
-    line-height: 1.6;
-    color: #333;
-  }
-`
-
-const LevelsSection = styled.section`
-  padding: 4rem 2rem;
-  background: #fff;
-  text-align: center;
 `
 
 const LevelsGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 2rem;
-  margin-top: 2rem;
+  margin-top: 3rem;
 `
 
 const LevelCard = styled.div`
-  background: #f0f0f0;
-  border-radius: 1rem;
+  background: ${theme.white};
+  border-radius: 8px;
   padding: 2rem;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s;
+  text-align: center;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  img {
+    width: 100%;
+    height: 130px;
+    object-fit: center;
+    margin-bottom: 1rem;
+    border-radius: 4px;
+
+    @media (max-width: ${theme.breakpoints.sm}) {
+      height: 200px;
+    }
+  }
+
   &:hover {
     transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    background: ${theme.secondary};
   }
 
   h3 {
+    color: ${theme.primary};
     font-size: 1.5rem;
     margin-bottom: 1rem;
-    color: #07611c;
+    font-family: ${theme.fonts.secondary};
   }
 
   p {
-    font-size: 1rem;
-    line-height: 1.5;
-    color: #333;
+    color: ${theme.text};
+    line-height: 1.6;
+    font-family: ${theme.fonts.primary};
   }
 `
-const Home = () => {
-  const testimonialsSettings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    autoplay: true,
-    autoplaySpeed: 4000,
+
+const MissionVisionGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+
+  @media (max-width: ${theme.breakpoints.sm}) {
+    grid-template-columns: 1fr;
   }
+`
+
+const MissionVisionCard = styled.div`
+  background: ${theme.white};
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  border-left: 5px solid ${theme.secondary};
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  h3 {
+    color: ${theme.primary};
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    font-family: ${theme.fonts.secondary};
+  }
+
+  p {
+    color: ${theme.text};
+    line-height: 1.6;
+    font-family: ${theme.fonts.primary};
+  }
+`
+
+const ImageGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin: 3rem 0;
+
+  img {
+    width: 100%;
+    height: 180px;
+    object-fit: center;
+    border-radius: 8px;
+    transition: transform 0.3s ease;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+    @media (max-width: ${theme.breakpoints.sm}) {
+      height: 220px;
+    }
+
+    &:hover {
+      transform: scale(1.05);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+  }
+
+  @media (max-width: ${theme.breakpoints.md}) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (max-width: ${theme.breakpoints.sm}) {
+    grid-template-columns: 1fr;
+  }
+`
+
+const TestimonialSection = styled.section`
+  background: ${theme.primary};
+  color: ${theme.white};
+  padding: 4rem 2rem;
+  margin: 3rem 0;
+  text-align: center;
+`
+
+const TestimonialGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+`
+
+const TestimonialCard = styled.div`
+  background: rgba(255, 255, 255, 0.1);
+  padding: 2rem;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  position: relative;
+  backdrop-filter: blur(5px);
+
+  &:hover {
+    transform: translateY(-5px);
+    background: rgba(255, 255, 255, 0.2);
+  }
+
+  p {
+    font-style: italic;
+    margin-bottom: 1rem;
+    line-height: 1.6;
+  }
+
+  .author {
+    font-weight: bold;
+    color: ${theme.secondary};
+  }
+
+  .role {
+    font-size: 0.9rem;
+    opacity: 0.8;
+  }
+`
+
+const Home = () => {
   useEffect(() => {
     AOS.init({
-      duration: 1000, // Animation duration in milliseconds
-      once: false, // Whether animation should happen only once
+      duration: 1000,
+      once: true,
     })
   }, [])
+
+  const features = [
+    {
+      icon: <FaChalkboardTeacher />,
+      title: "Experienced Teachers",
+      description:
+        "Our teachers are highly qualified and dedicated to nurturing every child's potential.",
+    },
+    {
+      icon: <FaChild />,
+      title: "Child-Centered Learning",
+      description:
+        "We focus on creating a safe and engaging environment for every child to thrive.",
+    },
+    {
+      icon: <FaBook />,
+      title: "Comprehensive Curriculum",
+      description:
+        "Our curriculum is designed to foster academic excellence and creativity.",
+    },
+    {
+      icon: <FaCross />,
+      title: "Faith-Based Education",
+      description:
+        "We integrate Christian values into all aspects of learning.",
+    },
+    {
+      icon: <FaUsers />,
+      title: "Strong Community",
+      description:
+        "We foster a caring community where students feel valued and supported.",
+    },
+    {
+      icon: <FaHeart />,
+      title: "Character Development",
+      description:
+        "We emphasize the development of Christ-like character and integrity.",
+    },
+  ]
+
+  const levels = [
+    {
+      title: "Early Years",
+      description:
+        "Nursery & Kindergarten – Building the foundation through play, care, and discovery.",
+      image: "../src/assets/images/early.jpg",
+    },
+    {
+      title: "Primary School",
+      description: "Developing skills in literacy, numeracy, and curiosity.",
+      image: "../src/assets/images/primary.jpg",
+    },
+    {
+      title: "Junior Secondary",
+      description: "Cultivating deeper learning and character.",
+      image: "../src/assets/images/junior.jpg",
+    },
+    {
+      title: "Senior Secondary",
+      description: "Preparing for higher education and the world beyond.",
+      image: "../src/assets/images/senior.jpg",
+    },
+  ]
+
+  const testimonials = [
+    {
+      quote:
+        "This school has provided an excellent environment for my child's growth both academically and spiritually.",
+      author: "Mrs. Johnson",
+      role: "Parent",
+    },
+    {
+      quote:
+        "The teachers are dedicated and truly care about each student's success.",
+      author: "Mr. Thompson",
+      role: "Parent",
+    },
+    {
+      quote:
+        "I've seen tremendous growth in my child's confidence and love for learning since joining Eltons.",
+      author: "Mrs. Williams",
+      role: "Parent",
+    },
+  ]
+
+  const galleryImages = [
+    "../src/assets/images/car1.jpg",
+    "../src/assets/images/sch.jpg",
+    "../src/assets/images/car3.jpg",
+    "../src/assets/images/car4.jpg",
+    "../src/assets/images/car5.jpg",
+    "../src/assets/images/gallery6.jpg",
+  ]
 
   return (
     <Container>
       <Slides />
       <Welcome />
 
-      {/* Mission Section */}
-      <Section reverse={false} data-aos="fade-right">
-        <div>
-          <h2>Our Mission</h2>
-          <p>
-            We are committed to partnering with parents to educate the minds and
-            nuture the hearts of learners for the glory of God in a Christ
-            centered environment
-          </p>
-        </div>
-        <img src="../images/img6.jpg" alt="Mission" />
+      {/* Mission & Vision Section */}
+      <Section>
+        <SectionTitle>Our Mission & Vision</SectionTitle>
+        <MissionVisionGrid>
+          <MissionVisionCard data-aos="fade-right">
+            <h3>Our Mission</h3>
+            <p>
+              We are committed to partnering with parents to educate the minds
+              and nurture the hearts of learners for the glory of God in a
+              Christ-centered environment.
+            </p>
+          </MissionVisionCard>
+          <MissionVisionCard data-aos="fade-left">
+            <h3>Our Vision</h3>
+            <p>
+              To see lives transformed by the power of the gospel of Jesus
+              Christ through Christian Education.
+            </p>
+          </MissionVisionCard>
+        </MissionVisionGrid>
+
+        {/* Additional Images */}
+        <ImageGrid>
+          {galleryImages.slice(0, 4).map((image, index) => (
+            <img
+              key={index}
+              src={image}
+              alt={`School activity ${index + 1}`}
+              data-aos="zoom-in"
+              data-aos-delay={index * 100}
+            />
+          ))}
+        </ImageGrid>
       </Section>
 
-      <Section reverse={true} data-aos="fade-left">
-        <div>
-          <h2>About Us</h2>
-          <p>
-            Eltons Christian School has been a beacon of education and faith for
-            over a decade. Our programs support students from diverse
-            backgrounds with quality learning experiences.
-          </p>
-        </div>
-        <img src="../images/img3.jpg" alt="About Us" />
-      </Section>
-      <WhyChooseUsSection data-aos="fade-up">
-        <WhyContent>
-          <h2>Why Choose Us?</h2>
-          <div className="features">
-            <div className="feature" data-aos="fade-up">
-              <FaChalkboardTeacher />
+      {/* Why Choose Us Section */}
+      <WhyChooseUsSection>
+        <SectionTitle>
+          <span>Why Choose Eltons Christian School?</span>
+        </SectionTitle>
+        <FeaturesGrid>
+          {features.map((feature, index) => (
+            <FeatureCard
+              key={index}
+              data-aos="fade-up"
+              data-aos-delay={index * 100}
+            >
+              {feature.icon}
               <div>
-                <h3>Experienced Teachers</h3>
-                <p>
-                  Our teachers are highly qualified and dedicated to nurturing
-                  every child’s potential.
-                </p>
+                <h3>{feature.title}</h3>
+                <p>{feature.description}</p>
               </div>
-            </div>
-            <div className="feature" data-aos="fade-up">
-              <FaChild />
-              <div>
-                <h3>Child-Centered Learning</h3>
-                <p>
-                  We focus on creating a safe and engaging environment for every
-                  child to thrive.
-                </p>
-              </div>
-            </div>
-            <div className="feature" data-aos="fade-up">
-              <FaBook />
-              <div>
-                <h3>Comprehensive Curriculum</h3>
-                <p>
-                  Our curriculum is designed to foster academic excellence and
-                  creativity.
-                </p>
-              </div>
-            </div>
-            <div className="feature" data-aos="fade-up">
-              <FaSmile />
-              <div>
-                <h3>Happy Students</h3>
-                <p>
-                  We ensure that every child enjoys their learning journey with
-                  us.
-                </p>
-              </div>
-            </div>
-          </div>
-        </WhyContent>
-        <WhyImage data-aos="fade-down">
-          <div>
-            <img src="../src/assets/images/becca.jpg" alt="" srcset="" />
-          </div>
-        </WhyImage>
+            </FeatureCard>
+          ))}
+        </FeaturesGrid>
       </WhyChooseUsSection>
-      <LevelsSection data-aos="fade-up">
-        <h2>🧒👦 Our School Levels</h2>
+
+      {/* School Levels Section */}
+      <Section>
+        <SectionTitle>Our School Levels</SectionTitle>
         <LevelsGrid>
-          <LevelCard data-aos="fade-up">
-            <h3>🎨 Early Years</h3>
-            <p>
-              Nursery & Kindergarten – Building the foundation through play,
-              care, and discovery.
-            </p>
-          </LevelCard>
-          <LevelCard data-aos="fade-right">
-            <h3>📖 Primary School</h3>
-            <p>Developing skills in literacy, numeracy, and curiosity.</p>
-          </LevelCard>
-          <LevelCard data-aos="fade-left">
-            <h3>🏫 Junior Secondary</h3>
-            <p>Cultivating deeper learning and character.</p>
-          </LevelCard>
-          <LevelCard data-aos="fade-up">
-            <h3>🎓 Senior Secondary</h3>
-            <p>Preparing for higher education and the world beyond.</p>
-          </LevelCard>
+          {levels.map((level, index) => (
+            <LevelCard
+              key={index}
+              data-aos="fade-up"
+              data-aos-delay={index * 100}
+            >
+              <img src={level.image} alt={level.title} style={{}} />
+              <h3>{level.title}</h3>
+              <p>{level.description}</p>
+            </LevelCard>
+          ))}
         </LevelsGrid>
-      </LevelsSection>
+      </Section>
+
+      {/* Testimonials Section */}
+      <TestimonialSection>
+        <SectionTitle>
+          <span>What Parents Say</span>
+        </SectionTitle>
+        <TestimonialGrid>
+          {testimonials.map((testimonial, index) => (
+            <TestimonialCard
+              key={index}
+              data-aos="fade-up"
+              data-aos-delay={index * 100}
+            >
+              <p>"{testimonial.quote}"</p>
+              <div className="author">{testimonial.author}</div>
+              <div className="role">{testimonial.role}</div>
+            </TestimonialCard>
+          ))}
+        </TestimonialGrid>
+      </TestimonialSection>
+
+      {/* Gallery Section */}
+      <Section>
+        <SectionTitle>School Life</SectionTitle>
+        <ImageGrid>
+          {galleryImages.map((image, index) => (
+            <img
+              key={index}
+              src={image}
+              alt={`School life ${index + 1}`}
+              data-aos="zoom-in"
+              data-aos-delay={index * 50}
+            />
+          ))}
+        </ImageGrid>
+      </Section>
+
       <MiniGallery />
 
-      <TestimonialsCarousel {...testimonialsSettings}>
-        <div>
-          <p>
-            "Eltons Christian School has changed my life. The teachers are
-            amazing!"
-          </p>
-        </div>
-        <div>
-          <p>
-            "I love the environment and the opportunities to grow academically."
-          </p>
-        </div>
-        <div>
-          <p>
-            "The best decision I ever made was joining Eltons Christian School."
-          </p>
-        </div>
-      </TestimonialsCarousel>
-
-      <Section reverse={false} data-aos="fade-right">
-        <div>
-          <h2>Admissions</h2>
-          <p>
-            Our admissions process is simple and welcoming. Contact us today to
-            find out how you can join our growing family.
-          </p>
-        </div>
-        <img src="../src/assets/images/car2.jpg" alt="Admissions" />
-      </Section>
-      <Sections>
-        {" "}
+      <Section>
+        <SectionTitle>Contact Us</SectionTitle>
         <Contact />
-      </Sections>
+      </Section>
+      <a
+        href="https://wa.me/+2348036702706"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <FloatingButton />
+      </a>
     </Container>
   )
 }

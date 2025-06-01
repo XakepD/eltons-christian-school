@@ -1,0 +1,43 @@
+/* FloatingButton.css */
+.floating-button {
+  position: fixed;
+  padding: 1rem 2rem;
+  border-radius: 20px;
+  background-color: #25d366; /* WhatsApp green as an example */
+  color: white;
+  border: none;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  font-size: 15px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  transition: all 0.3s ease;
+}
+
+.floating-button:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* Position classes */
+.bottom-right {
+  bottom: 20px;
+  right: 20px;
+}
+
+.bottom-left {
+  bottom: 20px;
+  left: 20px;
+}
+
+.top-right {
+  top: 20px;
+  right: 20px;
+}
+
+.top-left {
+  top: 20px;
+  left: 20px;
+}

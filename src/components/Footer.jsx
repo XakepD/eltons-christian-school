@@ -11,13 +11,13 @@ import {
 } from "react-icons/fa" // Import additional icons
 
 const FooterContainer = styled.footer`
-  background: url(../src/assets/images/foot.jpg);
-  background-size: cover;
-  background-color: #000000;
+  bottom: 0;
 
-  backdrop-filter: blur(5px) !important;
+  background: url(../src/assets/images/overlay-top.png) top center no-repeat;
+  background-color: black;
+  background-size: contain;
   color: white;
-  padding: 20px 50px;
+  padding: 50px;
 `
 
 const FooterContent = styled.div`
@@ -96,11 +96,11 @@ const Footer = () => {
         {/* Quick Links Section */}
         <Column>
           <h3>Quick Links</h3>
-          <a href="#home">Home</a>
-          <a href="#about-us">About Us</a>
-          <a href="#gallery">Gallery</a>
-          <a href="#admissions">Admissions</a>
-          <a href="#contact-us">Contact Us</a>
+          <a href="/">Home</a>
+          <a href="/about-us">About Us</a>
+          <a href="/gallery">Gallery</a>
+          <a href="/admissions">Admissions</a>
+          <a href="/contact-us">Contact Us</a>
         </Column>
 
         {/* Contact Section */}

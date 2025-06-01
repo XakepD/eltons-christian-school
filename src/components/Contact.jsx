@@ -11,70 +11,51 @@ import {
   FaTiktok,
 } from "react-icons/fa"
 
-const SocialLinks = styled.div`
-  display: flex;
-  gap: 1rem;
-  margin-top: 2rem;
-  position: absolute;
-  bottom: 20px;
-  @media (max-width: 768px) {
-    position: relative;
-  }
-
-  a {
-    color: white;
-    font-size: 1.5rem;
-    transition: color 0.3s;
-
-    &:hover {
-      color: #5cff7c; /* Light green hover effect */
-    }
-  }
-`
+const theme = {
+  primary: "#1a5276",
+  secondary: "#d4ac0d",
+  accent: "#e74c3c",
+  light: "#f8f9fa",
+  dark: "#343a40",
+  text: "#333",
+  white: "#ffffff",
+}
 
 const FormSection = styled.div`
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   gap: 2rem;
-  margin: 2rem 0;
+  padding: 4rem;
+  background: ${theme.white};
   border-radius: 10px;
-
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  background: white;
 
   @media (max-width: 768px) {
     flex-direction: column;
-    background-color: #f9f9f921;
-    padding: 2rem;
+    padding: 1rem;
+    background: white;
   }
+  background: #020024;
+  background: url("../src/assets/images/flower-shaped.svg"),
+    linear-gradient(152deg, #343a40 0%, #384c5f 38%, #1a5276 100%);
+  background-position: top right;
+  background-repeat: no-repeat;
 `
-
 const ContactForm = styled.form`
-  flex: 1;
+  flex: 2;
   padding: 2rem;
-  background-color: #ffffff;
   width: 100%;
   animation: fadeIn 1.5s;
   box-sizing: border-box;
   height: 100%;
-  @media (max-width: 768px) {
-    padding: 1rem;
-  }
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 
   h2 {
-    font-size: 1.8rem;
-    color: #000000;
+    font-size: 1.5rem;
+    color: ${theme.white};
     margin-bottom: 1rem;
-    text-align: center;
-  }
-
-  label {
-    display: block;
-    font-size: 1rem;
-    color: #333;
-    margin-bottom: 0.5rem;
-    text-align: left;
   }
 
   input,
@@ -82,18 +63,19 @@ const ContactForm = styled.form`
     width: 100%;
     padding: 0.8rem;
     margin-bottom: 1rem;
-    border: 1px solid #ccc;
+    border: 2px solid ${theme.primary};
     border-radius: 5px;
     font-size: 1rem;
     box-sizing: border-box;
+    color: ${theme.text};
   }
 
   button {
     display: block;
-    width: 100%;
+    width: 30%;
     padding: 0.8rem;
-    background-color: #000000;
-    color: white;
+    background-color: ${theme.secondary};
+    color: ${theme.white};
     font-size: 1rem;
     font-weight: bold;
     border: none;
@@ -101,60 +83,109 @@ const ContactForm = styled.form`
     cursor: pointer;
     transition: background-color 0.3s;
 
+    @media (max-width: 768px) {
+      width: 100%;
+    }
+
     &:hover {
-      background-color: #ffffff;
-      border: solid 2px black;
-      color: black;
+      background-color: ${theme.secondary};
+      color: ${theme.primary};
+    }
+  }
+  @media (max-width: 768px) {
+    padding: 1rem;
+    padding-bottom: 2rem;
+    background: url("../src/assets/images/flower-shaped.svg"),
+      linear-gradient(152deg, #343a40 0%, #384c5f 38%, #1a5276 100%);
+    background-position: top right;
+    background-repeat: no-repeat;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+
+    button {
+      width: 100%;
+      color: ${theme.primary};
+      background-color: ${theme.white};
     }
   }
 `
 
 const InfoContainer = styled.div`
   flex: 1;
-  background: url("./src/assets/images/ib.png") no-repeat;
-  background-size: 200px;
-  background-position: bottom right;
-  position: relative;
-  background-color: #000000;
-  height: 500px;
   animation: fadeIn 1.5s;
-
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
   padding: 2rem;
-  @media (max-width: 768px) {
-    height: 500px !important;
-    background-size: 100px;
-
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  }
 
   h2 {
-    font-size: 2rem;
-    color: #ffffff;
-    margin-top: -1rem;
-    top: 20px;
+    font-size: 1.5rem;
+    color: ${theme.secondary};
   }
 
   p {
-    font-size: 1rem;
-    color: #ffffff;
-    margin-top: 2rem;
+    font-size: 0.9rem;
+    color: ${theme.white};
     display: flex;
     align-items: center;
     gap: 0.5rem;
     vertical-align: middle;
     animation: fadeIn 1.5s;
-    @media (max-width: 768px) {
-      margin-top: 1rem;
+
+    span {
+      font-size: 1.2rem;
+      color: ${theme.secondary};
     }
   }
 
   a {
-    color: #ffffff;
+    color: ${theme.white};
     text-decoration: none;
-    font-weight: bold;
+    font-size: 0.9rem;
 
     &:hover {
       text-decoration: underline;
+    }
+  }
+  @media (max-width: 768px) {
+    height: auto;
+    padding: 1rem;
+    gap: 1px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    span {
+      color: ${theme.primary};
+    }
+    h2 {
+      color: ${theme.primary};
+    }
+    a {
+      color: ${theme.primary};
+      font-weight: bold;
+    }
+    p {
+      color: ${theme.dark};
+      font-weight: bold;
+    }
+  }
+`
+
+const SocialLinks = styled.div`
+  display: flex;
+  gap: 1rem;
+
+  a {
+    color: ${theme.secondary};
+    font-size: 1.2rem;
+    transition: color 0.3s;
+
+    &:hover {
+      color: ${theme.accent}; /* Accent color for hover effect */
+    }
+  }
+  @media (max-width: 768px) {
+    a {
+      color: ${theme.primary};
     }
   }
 `
@@ -204,17 +235,25 @@ const Contact = () => {
       <InfoContainer>
         <h2>Contact Information</h2>
         <p>
-          <FaEnvelope /> Email:{" "}
+          <span>
+            <FaEnvelope />
+          </span>{" "}
+          Email:{" "}
           <a href="mailto:eltonchristianschool@gmail.com">
             eltonchristianschool@gmail.com
           </a>
         </p>
         <p>
-          <FaPhoneAlt /> Phone: <a href="tel:+2348036702706">+2348036702706</a>
+          <span>
+            <FaPhoneAlt />
+          </span>{" "}
+          Phone: <a href="tel:+2348036702706">+2348036702706</a>
         </p>
         <p>
-          <FaMapMarkerAlt /> Address: 2 King Jesus street, off Peace Drive,
-          Abuloma, Rivers
+          <span>
+            <FaMapMarkerAlt />
+          </span>{" "}
+          Address: 2 King Jesus Street, off Peace Drive, Abuloma, Rivers
         </p>
 
         {/* Social Media Links */}
@@ -251,7 +290,6 @@ const Contact = () => {
       </InfoContainer>
       <ContactForm onSubmit={handleSubmit}>
         <h2>Send Us a Message</h2>
-        <label htmlFor="name">Name</label>
         <input
           type="text"
           id="name"
@@ -262,7 +300,6 @@ const Contact = () => {
           required
         />
 
-        <label htmlFor="email">Email</label>
         <input
           type="email"
           id="email"
@@ -272,8 +309,6 @@ const Contact = () => {
           onChange={handleChange}
           required
         />
-
-        <label htmlFor="message">Message</label>
         <textarea
           id="message"
           name="message"
