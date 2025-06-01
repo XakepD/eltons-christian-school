@@ -310,7 +310,7 @@ const MiniGallery = () => {
   const [selectedImageIndex, setSelectedImageIndex] = useState(null)
 
   useEffect(() => {
-    axios("http://192.168.107.187:8000/random-images/")
+    axios("https://eltonsapi.onrender.com/random-images/")
       .then((response) => {
         setGalleries(response.data)
       })

@@ -520,7 +520,7 @@ const Home = () => {
         </TestimonialGrid>
       </TestimonialSection>
 
-      {/* Gallery Section */}
+      {/* Gallery Section 
       <Section>
         <SectionTitle>School Life</SectionTitle>
         <ImageGrid>
@@ -534,7 +534,7 @@ const Home = () => {
             />
           ))}
         </ImageGrid>
-      </Section>
+      </Section>*/}
 
       <MiniGallery />
 

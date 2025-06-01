@@ -278,7 +278,6 @@ const Curriculum = () => {
             alt="Curriculum Overview"
           />
         </Section>
-
         {/* Subjects Offered */}
         <Section reverse={true} data-aos="fade-up">
           <div>
@@ -371,9 +370,8 @@ const Curriculum = () => {
             </SubjectLevelsContainer>
           </div>
         </Section>
-
         {/* Examinations */}
-        <Section reverse={false} data-aos="fade-up">
+        {/* <Section reverse={false} data-aos="fade-up">
           <div>
             <h2>Examinations</h2>
             <p>
@@ -414,7 +412,7 @@ const Curriculum = () => {
           <img src="../src/assets/images/exams.jpg" alt="Examinations" />
         </Section>
 
-        {/* Co-curricular Activities */}
+      
         <Section reverse={true} data-aos="fade-up">
           <div>
             <h2>Co-curricular Activities</h2>
@@ -451,7 +449,8 @@ const Curriculum = () => {
             src="../src/assets/images/extracurricular.jpg"
             alt="Co-curricular Activities"
           />
-        </Section>
+        </Section>{" "}
+        */}
       </Sections>
     </Container>
   )

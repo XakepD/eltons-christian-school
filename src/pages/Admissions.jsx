@@ -153,9 +153,9 @@ const Admissions = () => {
           <div>
             <h2>Step 1: Submit an Application</h2>
             <p>
-              Complete the online application form and provide the necessary
-              documents, including previous academic records and a copy of the
-              student's birth certificate.
+              Complete the application form and provide the necessary documents,
+              including previous academic records and a copy of the student's
+              birth certificate.
             </p>
           </div>
         </Step>

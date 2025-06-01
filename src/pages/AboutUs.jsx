@@ -197,7 +197,7 @@ const AboutUs = () => {
 
       <TeamSection>
         <h2>Meet Our Team</h2>
-        <TeamGrid>
+        {/*   <TeamGrid>
           <TeamCard>
             <img src="../src/assets/images/team-01.png" alt="Team Member 1" />
             <h3>Mr Alfred</h3>
@@ -218,7 +218,7 @@ const AboutUs = () => {
             <h3>Emily White</h3>
             <p>Head of Administration</p>
           </TeamCard>
-        </TeamGrid>
+        </TeamGrid>*/}
       </TeamSection>
     </Container>
   )
