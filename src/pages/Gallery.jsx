@@ -302,11 +302,7 @@ const Gallery = () => {
         {images.map((image, index) => (
           <ImageCard key={image.id}>
             <Image
-<<<<<<< HEAD
               src={`https://eltonsapi.onrender.com/${image.image}`}
-=======
-              src={`https://eltonschristianschool.onrender.com/${image.image}`}
->>>>>>> 2eacafbb4d9c30e1ec74d73194a2ff1f4cd768aa
               alt={image.gallery}
               onClick={() => openModal(index)}
             />
@@ -320,11 +316,7 @@ const Gallery = () => {
           <ModalContent zoom={zoom}>
             <CloseButton onClick={closeModal} />
             <img
-<<<<<<< HEAD
               src={`https://eltonsapi.onrender.com/${images[currentImageIndex].image}`}
-=======
-              src={`https://eltonschristianschool.onrender.com/${images[currentImageIndex].image}`}
->>>>>>> 2eacafbb4d9c30e1ec74d73194a2ff1f4cd768aa
               alt={images[currentImageIndex].gallery}
             />
             <ZoomControls>
