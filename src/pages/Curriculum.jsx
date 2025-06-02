@@ -324,7 +324,7 @@ const Curriculum = () => {
               </SubjectLevel>
 
               <SubjectLevel>
-                <h3>Senior Secondary (Grades 10-12)</h3>
+                <h3>Senior Secondary </h3>
                 <p>Students choose from three academic tracks:</p>
                 <SeniorSecondaryTracks>
                   <div>
